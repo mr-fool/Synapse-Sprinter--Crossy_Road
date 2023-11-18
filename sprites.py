@@ -5,7 +5,10 @@ class Player:
         self.rect = pygame.Rect(x, y, w, h)
         self.color = (0, 128, 255)
 
-    def move(self, amount):
+    def move_x(self, amount):
+        self.rect.x += amount
+    
+    def move_y(self, amount):
         self.rect.y += amount
 
     def update(self):

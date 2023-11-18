@@ -11,9 +11,9 @@ def getdata():
         try:
             ser_out = ser.readline().decode().strip().split(',')
             if not len(ser_out) == 2:
-                pass
-            else:
-                received = True
-                ser_out = [float(i) for i in ser_out]
+                continue
+            received = True
+            ser_out = [float(i) for i in ser_out]
+            return ser_out
         except:
-            pass
+            continue
