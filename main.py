@@ -44,6 +44,10 @@ pygame.display.set_caption("Arduino Crossy Road")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
+# Camera
+cam_x = 0
+cam_y = 0
+
 # Player setup
 player = sprites.Player(WIDTH//2, HEIGHT//2, 25, 25)
 
@@ -76,7 +80,7 @@ while True:
 
     # Clear the screen
     screen.fill(BLACK)
-    player.update()
+    player.update(cam_x, cam_y)
     player.draw(screen)
 
 
