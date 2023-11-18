@@ -5,7 +5,8 @@ arduino_port = 'COM3'
 baud_rate = 115200
 
 ser = serial.Serial(arduino_port, baud_rate, timeout=1)
-def getdata():
+breaking_case = False
+while not breaking_case:
     received = False
     while not received:
         try:
@@ -14,6 +15,12 @@ def getdata():
                 continue
             received = True
             ser_out = [float(i) for i in ser_out]
-            return ser_out
-        except:
+            print(f"left: {ser_out[0]}, right: {ser_out[1]}")
+        except KeyboardInterrupt:
+            ser.close()
+            breaking_case = True
+            exit()
+        except Exception as e:  
             continue
+
+print("Jes")
