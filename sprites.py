@@ -8,11 +8,10 @@ class Player:
         self.color = (0, 128, 255)
 
     def move_x(self, amount):
-        self.rect.x += amount
+        self.x += amount
     
     def move_y(self, amount):
-        self.rect.y += amount
-
+        self.y += amount
 
     def update(self, cam_x, cam_y):
         self.rect.x = self.x + cam_x
