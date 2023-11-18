@@ -66,16 +66,26 @@ while True:
 
     # Camera control
     cam_y += 1
-    print(cam_y)
 
     # Spawn enemies
-    if cam_y%10 == 0 and random.randint(0, 10) < 1:
-        size = 50
-        x = random.randint(size, WIDTH-size)
-        y = -100
-        speed = random.randint(1, 10)
-        enemy = sprites.Enemy(x, y, size, size, speed)
-        enemies.append(enemy)
+    enemy_spawn_rate = 1
+    enemy_count_limit = 25  # Match with the camera y to align it to a grid and prevent weird overlap
+    for i in range(random.randint(1, enemy_spawn_rate)):
+        if cam_y%enemy_count_limit == 0:
+            rand_dir = random.randint(0, 1)
+            size = enemy_count_limit
+            x = -50
+            if rand_dir == 1:
+                x = WIDTH+50
+            # Align y to a grid
+            grid_height = enemy_count_limit
+            grid_height_count = HEIGHT/grid_height
+            y = random.randint(0, grid_height_count)*grid_height - cam_y
+            speed = random.randint(1, 5)
+            if rand_dir == 1:
+                speed *= -1
+            enemy = sprites.Enemy(x, y, size, size, speed)
+            enemies.append(enemy)
     
     if USING_ARDUINO:
         print(player_input_data)
