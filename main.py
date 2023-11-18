@@ -2,6 +2,7 @@ import sys
 import pygame
 import random
 import sprites
+import arduino_data
 
 pygame.init()
 
@@ -21,6 +22,17 @@ clock = pygame.time.Clock()
 
 
 while True:
+    player_input_data = arduino_data.getdata()
+    if not player_input_data:
+        continue
+    if not player_input_data[0]:
+        continue
+    if not player_input_data[1]:
+        continue
+    if not len(player_input_data) == 2:
+        continue
+
+
     for event in pygame.event.get():
         # Exit game
         if event.type == pygame.QUIT:
@@ -34,6 +46,11 @@ while True:
         # Keyup events
         elif event.type == pygame.KEYUP:
             pass
+    
+    print(player_input_data)
+    
+    if float(player_input_data[0]) > 0:
+        player.move(-25)
 
     # Clear the screen
     screen.fill(BLACK)
