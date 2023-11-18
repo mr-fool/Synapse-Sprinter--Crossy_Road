@@ -1,5 +1,4 @@
 import serial
-import time
 
 arduino_port = 'COM3'
 baud_rate = 115200
