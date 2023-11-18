@@ -51,12 +51,14 @@ cam_y = 0
 # Player setup
 player = sprites.Player(WIDTH//2, HEIGHT//2, 25, 25)
 
+# Enemy setup
+enemies = []
+
 
 clock = pygame.time.Clock()
 
 
 while True:
-
     print(f"left: {sig1}, right: {sig2}")
     for event in pygame.event.get():
         # Exit game
@@ -67,7 +69,17 @@ while True:
             print("closing serial connection")
             print("Exiting...")
             sys.exit()
-    
+            
+            
+        # Keydown events
+        elif event.type == pygame.KEYDOWN:
+             if event.key == pygame.K_SPACE:
+                player.move(-25)
+        # Keyup events
+        elif event.type == pygame.KEYUP:
+            pass
+          
+          
     if sig1 > 0 and sig2 > 0:
         print("forward")
         player.move_y(-1)
@@ -78,8 +90,44 @@ while True:
         print("right")
         player.move_x(1)
 
+        
     # Clear the screen
     screen.fill(BLACK)
+
+    # Camera control
+    cam_y += 1
+
+    # Spawn enemies
+    enemy_spawn_rate = 1
+    enemy_count_limit = 25  # Match with the camera y to align it to a grid and prevent weird overlap
+    for i in range(random.randint(1, enemy_spawn_rate)):
+        if cam_y%enemy_count_limit == 0:
+            rand_dir = random.randint(0, 1)
+            size = enemy_count_limit
+            x = -50
+            if rand_dir == 1:
+                x = WIDTH+50
+            # Align y to a grid
+            grid_height = enemy_count_limit
+            grid_height_count = HEIGHT/grid_height
+            y = random.randint(0, grid_height_count)*grid_height - cam_y
+            speed = random.randint(1, 5)
+            if rand_dir == 1:
+                speed *= -1
+            enemy = sprites.Enemy(x, y, size, size, speed)
+            enemies.append(enemy)
+    
+    if USING_ARDUINO:
+        print(player_input_data)
+        
+        if float(player_input_data[0]) > 0:
+            player.move(-25)
+    
+    for enemy in enemies:
+        enemy.move()
+        enemy.update(cam_x, cam_y)
+        enemy.draw(screen)
+
     player.update(cam_x, cam_y)
     player.draw(screen)
 
