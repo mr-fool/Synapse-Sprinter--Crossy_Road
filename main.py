@@ -117,11 +117,6 @@ while True:
             enemy = sprites.Enemy(x, y, size, size, speed)
             enemies.append(enemy)
     
-    if USING_ARDUINO:
-        print(player_input_data)
-        
-        if float(player_input_data[0]) > 0:
-            player.move(-25)
     
     for enemy in enemies:
         enemy.move()
