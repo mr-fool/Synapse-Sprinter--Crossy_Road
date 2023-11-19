@@ -4,6 +4,7 @@ import random
 import sprites
 import serial
 import threading
+import winsound
 
 # Dev testing
 ARDUINO_MODE = False
@@ -63,9 +64,12 @@ player_2 = sprites.Player(WIDTH//2+100, HEIGHT//2, 25, 25)
 
 # Enemy setup
 enemies = []
-
-
 clock = pygame.time.Clock()
+
+bg_music = pygame.mixer.music.load("game_music.wav")
+pygame.mixer.music.play(-1)
+
+hit_sound = pygame.mixer.Sound("game_over.wav")
 
 def exit_code():
     print('='*24)
@@ -160,10 +164,13 @@ while True:
         enemy.update(cam_x, cam_y)
         enemy.draw(screen)
         if player_1.collides_with(enemy):
+            hit_sound.play()
             player_1.lives -= 1
             enemies.remove(enemy)
         if player_2.collides_with(enemy):
+            hit_sound.play()
             player_2.lives -= 1
+            enemies.remove(enemy)
 
     # Update all players (2)
     player_1.update(cam_x, cam_y)
