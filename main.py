@@ -4,6 +4,7 @@ import random
 import sprites
 import serial
 import threading
+import time
 
 
 # Dev testing
@@ -98,11 +99,16 @@ def exit_code():
 
 def end_game():
     print('='*24)
+    screen.fill(BLACK)
+    end_text = pygame.font.SysFont("Arial", 50).render("THE WINNER IS", True, WHITE)
+    text_rect = end_text.get_rect(center=(WIDTH//2, HEIGHT//2-50))
+    screen.blit(end_text, text_rect)
     if player_1.lives > 0:
         print("PLAYER ONE WON!")
     else:
         print("PLAYER TWO WON!")
     print("Game score: ", game_score)
+    time.sleep(5)
     exit_code()
 
 while True:
@@ -143,7 +149,6 @@ while True:
               print("right")
               player_1.move_x(player_speed)
 
-        
     # Camera control
     cam_y += 1
 
@@ -178,6 +183,7 @@ while True:
             if rand_dir == 1:
                 speed *= -1
             enemy = sprites.Enemy(x, y, size, size, speed)
+            enemy.flip(rand_dir)
             enemies.append(enemy)
     
     
@@ -198,7 +204,6 @@ while True:
             hit_sound.play()
             player_2.lives -= 1
             enemies.remove(enemy)
-
 
     # Update all players (2)
     player_1.update(cam_x, cam_y)
@@ -239,7 +244,6 @@ while True:
         pygame.quit()
         end_game()
 
-    
     print("P1: "+str(player_1.lives) + "  P2: "+str(player_2.lives) + "  score: "+str(game_score))
 
     # Update game state
