@@ -55,6 +55,11 @@ background_img_rect_1 = background_img.get_rect()
 background_img_rect_2 = background_img.get_rect()
 background_y = 0
 
+
+# Basic colours
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
 # Camera
 cam_x = 0
 cam_y = 0
@@ -72,20 +77,10 @@ player_2 = sprites.Player(WIDTH//2+100, HEIGHT//2, 25, 25)
 enemies = []
 clock = pygame.time.Clock()
 
-bg_music = pygame.mixer.music.load("game_music.wav")
+bg_music = pygame.mixer.music.load("sounds/game_music.wav")
 pygame.mixer.music.play(-1)
 
-hit_sound = pygame.mixer.Sound("game_over.wav")
-
-def exit_code():
-    print('='*24)
-    print("Quitting py game")
-    if ARDUINO_MODE:
-        ser.close()
-    print("closing serial connection")
-    print("Exiting...")
-    sys.exit()
-
+hit_sound = pygame.mixer.Sound("sounds/game_over.wav")
 
 def exit_code():
     print('='*24)
@@ -99,7 +94,7 @@ def exit_code():
 
 def end_game():
     print('='*24)
-    pygame.mixer.music.load("winner.wav")
+    pygame.mixer.music.load("sounds/winner.wav")
     pygame.mixer.music.play(-1)
     while True:
         for event in pygame.event.get():
@@ -204,29 +199,6 @@ while True:
         enemy.move()
         enemy.update(cam_x, cam_y)
         enemy.draw(screen)
-
-        if enemy.off_screen(HEIGHT):
-            enemies.remove(enemy)
-        # Check collision between players and enemies
-        if player_1.collides_with(enemy):
-            hit_sound.play()
-            player_1.lives -= 1
-            enemies.remove(enemy)
-        if player_2.collides_with(enemy):
-            hit_sound.play()
-            player_2.lives -= 1
-            enemies.remove(enemy)
-
-    # Update all players (2)
-    player_1.update(cam_x, cam_y)
-    player_2.update(cam_x, cam_y)
-    player_1.draw(screen)
-    player_2.draw(screen)
-    
-    if player_1.out_of_bounds(WIDTH, HEIGHT):
-        player_1.lives = 0
-    if player_2.out_of_bounds(WIDTH, HEIGHT):
-        player_2.lives = 0
 
         if enemy.off_screen(HEIGHT):
             enemies.remove(enemy)
