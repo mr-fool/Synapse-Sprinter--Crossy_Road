@@ -4,6 +4,7 @@ import random
 import sprites
 import serial
 import threading
+import winsound
 
 # Dev testing
 ARDUINO_MODE = False
@@ -57,15 +58,31 @@ cam_y = 0
 
 game_score = 0
 score_counter = 0
+# Player setup
+player_1 = sprites.Player(WIDTH//2-100, HEIGHT//2, 25, 25)
+player_2 = sprites.Player(WIDTH//2+100, HEIGHT//2, 25, 25)
 
 # Player setup
 player_1 = sprites.Player(WIDTH//2-100, HEIGHT//2, 25, 25)
 player_2 = sprites.Player(WIDTH//2+100, HEIGHT//2, 25, 25)
 # Enemy setup
 enemies = []
-
-
 clock = pygame.time.Clock()
+
+bg_music = pygame.mixer.music.load("game_music.wav")
+pygame.mixer.music.play(-1)
+
+hit_sound = pygame.mixer.Sound("game_over.wav")
+
+def exit_code():
+    print('='*24)
+    print("Quitting py game")
+    if ARDUINO_MODE:
+        ser.close()
+    print("closing serial connection")
+    print("Exiting...")
+    sys.exit()
+
 
 def exit_code():
     print('='*24)
@@ -95,6 +112,7 @@ while True:
             exit_code()
             
         # Keydown events
+
         elif event.type == pygame.KEYDOWN and not ARDUINO_MODE:
             if event.key == pygame.K_UP:
                 player_1.move_y(-25)
@@ -108,20 +126,20 @@ while True:
                 player_2.move_x(-25)
             if event.key == pygame.K_d:
                 player_2.move_x(25)
-    
 
-          
-    player_speed = 25
-    if cam_y%10 == 0:
-        if sig1 > 0 and sig2 > 0:
-            print("forward")
-            player_1.move_y(-player_speed)
-        elif sig1 > 0:
-            print("left")
-            player_1.move_x(-player_speed)
-        elif sig2 > 0:
-            print("right")
-            player_1.move_x(player_speed)
+               
+    if ARDUINO_MODE:
+      player_speed = 25
+      if cam_y%10 == 0:
+          if sig1 > 0 and sig2 > 0:
+              print("forward")
+              player_1.move_y(-player_speed)
+          elif sig1 > 0:
+              print("left")
+              player_1.move_x(-player_speed)
+          elif sig2 > 0:
+              print("right")
+              player_1.move_x(player_speed)
 
         
     # Clear the screen
@@ -166,6 +184,29 @@ while True:
             enemies.remove(enemy)
         if player_2.collides_with(enemy):
             player_2.lives -= 1
+
+    # Update all players (2)
+    player_1.update(cam_x, cam_y)
+    player_2.update(cam_x, cam_y)
+    player_1.draw(screen)
+    player_2.draw(screen)
+    
+    if player_1.out_of_bounds(WIDTH, HEIGHT):
+        player_1.lives = 0
+    if player_2.out_of_bounds(WIDTH, HEIGHT):
+        player_2.lives = 0
+
+        if enemy.off_screen(HEIGHT):
+            enemies.remove(enemy)
+        # Check collision between players and enemies
+        if player_1.collides_with(enemy):
+            hit_sound.play()
+            player_1.lives -= 1
+            enemies.remove(enemy)
+        if player_2.collides_with(enemy):
+            hit_sound.play()
+            player_2.lives -= 1
+            enemies.remove(enemy)
 
     # Update all players (2)
     player_1.update(cam_x, cam_y)
