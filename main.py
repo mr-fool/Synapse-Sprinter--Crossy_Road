@@ -78,17 +78,17 @@ while True:
         # Keyup events
         elif event.type == pygame.KEYUP:
             pass
-          
-          
-    if sig1 > 0 and sig2 > 0:
-        print("forward")
-        player.move_y(-1)
-    elif sig1 > 0:
-        print("left")
-        player.move_x(-1)
-    elif sig2 > 0:
-        print("right")
-        player.move_x(1)
+    
+    if cam_y%10 == 0:
+        if sig1 > 0 and sig2 > 0:
+            print("forward")
+            player.move_y(-25)
+        elif sig1 > 0:
+            print("left")
+            player.move_x(-25)
+        elif sig2 > 0:
+            print("right")
+            player.move_x(25)
 
         
     # Clear the screen
