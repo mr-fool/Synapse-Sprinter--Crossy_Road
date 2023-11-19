@@ -2,9 +2,10 @@
 import pygame
 import random
 
-# Sprite images
-cars = ["car.png", "car_2.png", "car_3.png"]
-playerpic = ["player.png", "player_2.png", "player_3.png", "player_4.png", "player_5.png", "player_1.png"]
+
+# List of character URLs
+cars =["car.png", "car_2.png", "car_3.png"]
+playerpic=["player.png", "player_2.png", "player_3.png", "player_4.png", "player_5.png", "player_1.png"]
 tree = ["tree.png", "log.png"]
 
 
@@ -14,9 +15,9 @@ class Player:
         self.y = y
         self.rect = pygame.Rect(self.x, self.y, w, h)
         playerrandom = random.choices(playerpic)
-        self.image = pygame.image.load(playerrandom[0])
-        self.image_rect = self.rect
-        self.resized_image = pygame.transform.scale(self.image, (w*3, h*3))
+        image = pygame.image.load(playerrandom[0])
+        self.image_ract = self.rect
+        self.resized_image = pygame.transform.scale(image, (w*3, h*3))
         self.color = (0, 128, 255)
         self.lives = 3
 
@@ -38,9 +39,7 @@ class Player:
         return self.rect.x+self.rect.w < 0 or self.rect.x > screen_width or self.rect.y+self.rect.h < 0 or self.rect.y > screen_height
     
     def draw(self, screen):
-        screen.blit(self.resized_image, self.image_rect)
-        
-
+        screen.blit(self.resized_image, self.image_ract)
 
 class Enemy:
     def __init__(self, x, y, w, h, speed):
@@ -52,10 +51,12 @@ class Enemy:
         carsrandom = random.choices(cars)
         self.image = pygame.image.load(carsrandom[0])
         self.image_rect = self.rect
+        self.resized_image = pygame.transform.scale(self.image, (w*3, h*3))
         if self.speed == 0:
             treerandom = random.choices(tree)
             self.image = pygame.image.load(treerandom[0])
-        self.resized_image = pygame.transform.scale(self.image, (w*3, h*3))
+            self.image_rect = self.rect
+            self.resized_image = pygame.transform.scale(self.image, (w*3, h*3))
 
     def update(self, cam_x, cam_y):
         self.rect.x = self.x + cam_x
@@ -66,6 +67,10 @@ class Enemy:
     
     def move(self):
         self.x += self.speed
+    
+    def flip(self, direction):
+        if direction == 1:
+            self.resized_image = pygame.transform.flip(self.resized_image, True, False)
     
     def off_screen(self, screen_height):
         return self.rect.y > screen_height+100
