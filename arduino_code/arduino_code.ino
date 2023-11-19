@@ -33,7 +33,7 @@
 
 
 
-add noise filter tingy where the minimal stuff = 0 and more = 1
+add noise filter thingy where the minimal stuff = 0 and more = 1
 
 
 */
@@ -42,6 +42,8 @@ add noise filter tingy where the minimal stuff = 0 and more = 1
 #define BAUD_RATE 115200
 #define INPUT_PIN_0 A0
 #define INPUT_PIN_1 A1
+#define INPUT_PIN_2 A2
+#define INPUT_PIN_3 A3
 #define BUFFER_SIZE 128
 #define NULL_POINT 25
 
@@ -52,6 +54,14 @@ float sum;
 int circular_buffer1[BUFFER_SIZE];
 int data_index1;
 float sum1;
+
+int circular_buffer2[BUFFER_SIZE];
+int data_index2;
+float sum2;
+
+int circular_buffer2[BUFFER_SIZE];
+int data_index2;
+float sum2;
 
 void setup() {
 	// Serial connection begin
@@ -81,8 +91,18 @@ void loop() {
 		int signal1 = EMGFilter2(sensor_value_1);
 		float envelop1 = getEnvelop1(abs(signal1));
     
+		int sensor_value_2 = analogRead(INPUT_PIN_2);
+		int signal2 = EMGFilter3(sensor_value_2);
+		float envelop2 = getEnvelop2(abs(signal2));
+    
+		int sensor_value_3 = analogRead(INPUT_PIN_2);
+		int signal3 = EMGFilter4(sensor_value_2);
+		float envelop3 = getEnvelop3(abs(signal2));
+    
     envelop *= 10;
     envelop1 *= 10;
+    envelop2 *= 10;
+    envelop3 *= 10;
     
     if (envelop < NULL_POINT) {
       envelop = 0;
@@ -90,12 +110,22 @@ void loop() {
     if (envelop1 < NULL_POINT) {
       envelop1 = 0;
     }
+    if (envelop2 < NULL_POINT) {
+      envelop2 = 0;
+    }
+    if (envelop3 < NULL_POINT) {
+      envelop3 = 0;
+    }
 
 		//Serial.print(signal);
 		//Serial.print(",");
 		Serial.print(envelop);
     Serial.print(",");
 		Serial.println(envelop1);
+    Serial.print(",");
+		Serial.println(envelop2);
+    Serial.print(",");
+		Serial.println(envelop3);
 	}
 }
 
@@ -114,6 +144,22 @@ float getEnvelop1(int abs_emg){
 	circular_buffer1[data_index1] = abs_emg;
 	data_index1 = (data_index1 + 1) % BUFFER_SIZE;
 	return (sum1/BUFFER_SIZE) * 2.0;
+}
+
+float getEnvelop2(int abs_emg){
+	sum2 -= circular_buffer2[data_index];
+	sum2 += abs_emg;
+	circular_buffer2[data_index2] = abs_emg;
+	data_index2 = (data_index2 + 1) % BUFFER_SIZE;
+	return (sum2/BUFFER_SIZE) * 2.0;
+}
+
+float getEnvelop3(int abs_emg){
+	sum3 -= circular_buffer3[data_index];
+	sum3 += abs_emg;
+	circular_buffer3[data_index3] = abs_emg;
+	data_index3 = (data_index3 + 1) % BUFFER_SIZE;
+	return (sum3/BUFFER_SIZE) * 2.0;
 }
 
 // Band-Pass Butterworth IIR digital filter, generated using filter_gen.py.
@@ -157,6 +203,76 @@ float EMGFilter(float input)
 }
 
 float EMGFilter2(float input)
+{
+  float output = input;
+  {
+    static float a1, a2; // filter section state
+    float x = output - 0.05159732*a1 - 0.36347401*a2;
+    output = 0.01856301*x + 0.03712602*a1 + 0.01856301*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  {
+    static float a1, a2; // filter section state
+    float x = output - -0.53945795*a1 - 0.39764934*a2;
+    output = 1.00000000*x + -2.00000000*a1 + 1.00000000*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  {
+    static float a1, a2; // filter section state
+    float x = output - 0.47319594*a1 - 0.70744137*a2;
+    output = 1.00000000*x + 2.00000000*a1 + 1.00000000*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  {
+    static float a1, a2; // filter section state
+    float x = output - -1.00211112*a1 - 0.74520226*a2;
+    output = 1.00000000*x + -2.00000000*a1 + 1.00000000*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  return output;
+}
+
+
+float EMGFilter3(float input)
+{
+  float output = input;
+  {
+    static float a1, a2; // filter section state
+    float x = output - 0.05159732*a1 - 0.36347401*a2;
+    output = 0.01856301*x + 0.03712602*a1 + 0.01856301*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  {
+    static float a1, a2; // filter section state
+    float x = output - -0.53945795*a1 - 0.39764934*a2;
+    output = 1.00000000*x + -2.00000000*a1 + 1.00000000*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  {
+    static float a1, a2; // filter section state
+    float x = output - 0.47319594*a1 - 0.70744137*a2;
+    output = 1.00000000*x + 2.00000000*a1 + 1.00000000*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  {
+    static float a1, a2; // filter section state
+    float x = output - -1.00211112*a1 - 0.74520226*a2;
+    output = 1.00000000*x + -2.00000000*a1 + 1.00000000*a2;
+    a2 = a1;
+    a1 = x;
+  }
+  return output;
+}
+
+
+float EMGFilter4(float input)
 {
   float output = input;
   {
