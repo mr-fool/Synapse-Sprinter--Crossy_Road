@@ -101,21 +101,22 @@ def end_game():
         # Exit game
             if event.type == pygame.QUIT:
                 pygame.mixer.music.stop()
+                if player_1.lives > 0:
+                    print("PLAYER ONE WON!")
+                else:
+                    print("PLAYER TWO WON!")
+                print("Game score: ", game_score)
                 pygame.quit()
                 exit_code()
 
         screen.fill(BLACK)
-        string = f"THE WINNER IS PLAYER {1 if player_1.lives > 0 else 2}"
+        string = f"WINNER: {1 if player_1.lives > 0 else 2} SCORE: {game_score}"
         end_text = pygame.font.SysFont("Arial", 50).render(string, True, WHITE)
         text_rect = end_text.get_rect(center=(WIDTH//2, HEIGHT//2-50))
         screen.blit(end_text, text_rect)
         pygame.display.flip()
 
-        if player_1.lives > 0:
-            print("PLAYER ONE WON!")
-        else:
-            print("PLAYER TWO WON!")
-        print("Game score: ", game_score)
+    
 
 while True:
     #print(f"left: {sig1}, right: {sig2}")
