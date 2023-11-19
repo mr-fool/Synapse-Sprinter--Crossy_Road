@@ -96,17 +96,28 @@ def exit_code():
 
 def end_game():
     print('='*24)
-    screen.fill(BLACK)
-    end_text = pygame.font.SysFont("Arial", 50).render("THE WINNER IS", True, WHITE)
-    text_rect = end_text.get_rect(center=(WIDTH//2, HEIGHT//2-50))
-    screen.blit(end_text, text_rect)
-    if player_1.lives > 0:
-        print("PLAYER ONE WON!")
-    else:
-        print("PLAYER TWO WON!")
-    print("Game score: ", game_score)
-    time.sleep(5)
-    exit_code()
+    pygame.mixer.music.load("winner.wav")
+    pygame.mixer.music.play(-1)
+    while True:
+        for event in pygame.event.get():
+        # Exit game
+            if event.type == pygame.QUIT:
+                pygame.mixer.music.stop()
+                pygame.quit()
+                exit_code()
+
+        screen.fill(BLACK)
+        string = f"THE WINNER IS PLAYER {1 if player_1.lives > 0 else 2}"
+        end_text = pygame.font.SysFont("Arial", 50).render(string, True, WHITE)
+        text_rect = end_text.get_rect(center=(WIDTH//2, HEIGHT//2-50))
+        screen.blit(end_text, text_rect)
+        pygame.display.flip()
+
+        if player_1.lives > 0:
+            print("PLAYER ONE WON!")
+        else:
+            print("PLAYER TWO WON!")
+        print("Game score: ", game_score)
 
 while True:
     #print(f"left: {sig1}, right: {sig2}")
@@ -232,7 +243,7 @@ while True:
 
     #print(player_1.lives, player_2.lives)
     if player_1.lives == 0 or player_2.lives == 0:
-        pygame.quit()
+        pygame.mixer.music.stop()
         end_game()
 
     print("P1: "+str(player_1.lives) + "  P2: "+str(player_2.lives) + "  score: "+str(game_score))
