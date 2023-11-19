@@ -94,7 +94,6 @@ while True:
             pygame.quit()
             exit_code()
             
-        # Keydown events
         elif event.type == pygame.KEYDOWN and not ARDUINO_MODE:
             if event.key == pygame.K_UP:
                 player_1.move_y(-25)
@@ -108,20 +107,19 @@ while True:
                 player_2.move_x(-25)
             if event.key == pygame.K_d:
                 player_2.move_x(25)
-    
-
-          
-    player_speed = 25
-    if cam_y%10 == 0:
-        if sig1 > 0 and sig2 > 0:
-            print("forward")
-            player_1.move_y(-player_speed)
-        elif sig1 > 0:
-            print("left")
-            player_1.move_x(-player_speed)
-        elif sig2 > 0:
-            print("right")
-            player_1.move_x(player_speed)
+               
+    if ARDUINO_MODE:
+      player_speed = 25
+      if cam_y%10 == 0:
+          if sig1 > 0 and sig2 > 0:
+              print("forward")
+              player_1.move_y(-player_speed)
+          elif sig1 > 0:
+              print("left")
+              player_1.move_x(-player_speed)
+          elif sig2 > 0:
+              print("right")
+              player_1.move_x(player_speed)
 
         
     # Clear the screen
