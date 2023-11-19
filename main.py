@@ -50,7 +50,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Arduino Crossy Road")
 
 # Primary colours
-background_img = pygame.image.load("background.png")
+background_img = pygame.image.load("images/background.png")
 background_img_rect_1 = background_img.get_rect()
 background_img_rect_2 = background_img.get_rect()
 background_y = 0
