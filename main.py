@@ -5,10 +5,15 @@ import sprites
 import serial
 import threading
 
-arduino_port = 'COM3'
-baud_rate = 115200
-ser = serial.Serial(arduino_port, baud_rate, timeout=1)
-breaking_case = False
+# Dev testing
+ARDUINO_MODE = False
+
+ser = ''
+if ARDUINO_MODE:
+    arduino_port = 'COM3'
+    baud_rate = 115200
+    ser = serial.Serial(arduino_port, baud_rate, timeout=1)
+    breaking_case = False
 sig1 = 0
 sig2 = 0
 
@@ -31,8 +36,9 @@ def arduino_data():
                 sig2 = 0
                 continue
 
-arduino_data_thread = threading.Thread(target=arduino_data, daemon=True)
-arduino_data_thread.start()
+if ARDUINO_MODE:
+    arduino_data_thread = threading.Thread(target=arduino_data, daemon=True)
+    arduino_data_thread.start()
 
 pygame.init()
 
@@ -48,8 +54,12 @@ BLACK = (0, 0, 0)
 cam_x = 0
 cam_y = 0
 
+game_score = 0
+score_counter = 0
+
 # Player setup
-player = sprites.Player(WIDTH//2, HEIGHT//2, 25, 25)
+player_1 = sprites.Player(WIDTH//2-100, HEIGHT//2, 25, 25)
+player_2 = sprites.Player(WIDTH//2+100, HEIGHT//2, 25, 25)
 
 # Enemy setup
 enemies = []
@@ -57,38 +67,61 @@ enemies = []
 
 clock = pygame.time.Clock()
 
+def exit_code():
+    print('='*24)
+    print("Quitting py game")
+    if ARDUINO_MODE:
+        ser.close()
+    print("closing serial connection")
+    print("Exiting...")
+    sys.exit()
+
+
+def end_game():
+    print('='*24)
+    if player_1.lives > 0:
+        print("PLAYER ONE WON!")
+    else:
+        print("PLAYER TWO WON!")
+    print("Game score: ", game_score)
+    exit_code()
 
 while True:
-    print(f"left: {sig1}, right: {sig2}")
+    #print(f"left: {sig1}, right: {sig2}")
     for event in pygame.event.get():
         # Exit game
         if event.type == pygame.QUIT:
             pygame.quit()
-            print("Quitting py game")
-            ser.close()
-            print("closing serial connection")
-            print("Exiting...")
-            sys.exit()
-            
+            exit_code()
             
         # Keydown events
-        elif event.type == pygame.KEYDOWN:
-             if event.key == pygame.K_SPACE:
-                player.move(-25)
-        # Keyup events
-        elif event.type == pygame.KEYUP:
-            pass
+        elif event.type == pygame.KEYDOWN and not ARDUINO_MODE:
+            if event.key == pygame.K_UP:
+                player_1.move_y(-25)
+            if event.key == pygame.K_LEFT:
+                player_1.move_x(-25)
+            if event.key == pygame.K_RIGHT:
+                player_1.move_x(25)
+            if event.key == pygame.K_w:
+                player_2.move_y(-25)
+            if event.key == pygame.K_a:
+                player_2.move_x(-25)
+            if event.key == pygame.K_d:
+                player_2.move_x(25)
+    
+
           
-          
-    if sig1 > 0 and sig2 > 0:
-        print("forward")
-        player.move_y(-1)
-    elif sig1 > 0:
-        print("left")
-        player.move_x(-1)
-    elif sig2 > 0:
-        print("right")
-        player.move_x(1)
+    player_speed = 25
+    if cam_y%10 == 0:
+        if sig1 > 0 and sig2 > 0:
+            print("forward")
+            player_1.move_y(-player_speed)
+        elif sig1 > 0:
+            print("left")
+            player_1.move_x(-player_speed)
+        elif sig2 > 0:
+            print("right")
+            player_1.move_x(player_speed)
 
         
     # Clear the screen
@@ -96,6 +129,11 @@ while True:
 
     # Camera control
     cam_y += 1
+
+
+    score_counter += 1
+    if score_counter%10 == 0:
+        game_score += 1
 
     # Spawn enemies
     enemy_spawn_rate = 1
@@ -118,14 +156,35 @@ while True:
             enemies.append(enemy)
     
     
+    # Update all enemies
     for enemy in enemies:
         enemy.move()
         enemy.update(cam_x, cam_y)
         enemy.draw(screen)
+        if player_1.collides_with(enemy):
+            player_1.lives -= 1
+            enemies.remove(enemy)
+        if player_2.collides_with(enemy):
+            player_2.lives -= 1
 
-    player.update(cam_x, cam_y)
-    player.draw(screen)
+    # Update all players (2)
+    player_1.update(cam_x, cam_y)
+    player_2.update(cam_x, cam_y)
+    player_1.draw(screen)
+    player_2.draw(screen)
+    
+    if player_1.out_of_bounds(WIDTH, HEIGHT):
+        player_1.lives = 0
+    if player_2.out_of_bounds(WIDTH, HEIGHT):
+        player_2.lives = 0
 
+    #print(player_1.lives, player_2.lives)
+    if player_1.lives == 0 or player_2.lives == 0:
+        pygame.quit()
+        end_game()
+
+    
+    print("P1: "+str(player_1.lives) + "  P2: "+str(player_2.lives) + "  score: "+str(game_score))
 
     # Update game state
     pygame.display.flip()
