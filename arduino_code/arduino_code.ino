@@ -33,7 +33,7 @@
 
 
 
-add noise filter thingy where the minimal stuff = 0 and more = 1
+add noise filter thingy where the minimal stuff = 0 and more = reg value
 
 
 */
@@ -95,9 +95,9 @@ void loop() {
 		int signal2 = EMGFilter3(sensor_value_2);
 		float envelop2 = getEnvelop2(abs(signal2));
     
-		int sensor_value_3 = analogRead(INPUT_PIN_2);
-		int signal3 = EMGFilter4(sensor_value_2);
-		float envelop3 = getEnvelop3(abs(signal2));
+		int sensor_value_3 = analogRead(INPUT_PIN_3);
+		int signal3 = EMGFilter4(sensor_value_3);
+		float envelop3 = getEnvelop3(abs(signal3));
     
     envelop *= 10;
     envelop1 *= 10;
