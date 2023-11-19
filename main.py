@@ -5,6 +5,7 @@ import sprites
 import serial
 import threading
 
+
 # Dev testing
 ARDUINO_MODE = False
 
@@ -48,8 +49,10 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Arduino Crossy Road")
 
 # Primary colours
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+background_img = pygame.image.load("background.png")
+background_img_rect_1 = background_img.get_rect()
+background_img_rect_2 = background_img.get_rect()
+background_y = 0
 
 # Camera
 cam_x = 0
@@ -141,11 +144,16 @@ while True:
               player_1.move_x(player_speed)
 
         
-    # Clear the screen
-    screen.fill(BLACK)
-
     # Camera control
     cam_y += 1
+
+    # Set background
+    background_img_rect_1.y = background_y + cam_y%HEIGHT
+    background_img_rect_2.y = background_y - HEIGHT + cam_y%HEIGHT
+    screen.blit(background_img, background_img_rect_1)
+    screen.blit(background_img, background_img_rect_2)
+    
+
 
 
     score_counter += 1
