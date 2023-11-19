@@ -4,9 +4,9 @@ import random
 
 
 # List of character URLs
-cars =["car.png", "car_2.png", "car_3.png"]
-playerpic=["player.png", "player_2.png", "player_3.png", "player_4.png", "player_5.png", "player_1.png"]
-tree = ["tree.png", "log.png"]
+cars =["images/car.png", "images/car_2.png", "images/car_3.png"]
+playerpic=["images/player.png", "images/player_2.png", "images/player_3.png", "images/player_4.png", "images/player_5.png", "images/player_1.png"]
+tree = ["images/tree.png", "images/log.png"]
 
 
 class Player:
