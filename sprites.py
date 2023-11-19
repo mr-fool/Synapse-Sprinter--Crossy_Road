@@ -24,9 +24,9 @@ class Player:
         self.y = y
         self.rect = pygame.Rect(self.x, self.y, w, h)
         playerrandom = random.choices(playerpic)
-        self.image = pygame.image.load(playerrandom[0])
+        image = pygame.image.load(playerrandom[0])
         self.image_ract = self.rect
-        self.resized_image = pygame.transform.scale(self.image, (w*3, h*3))
+        self.resized_image = pygame.transform.scale(image, (w*3, h*3))
         self.color = (0, 128, 255)
         self.lives = 3
 
@@ -49,8 +49,6 @@ class Player:
     
     def draw(self, screen):
         screen.blit(self.resized_image, self.image_ract)
-        
-
 
 class Enemy:
     def __init__(self, x, y, w, h, speed):
@@ -78,6 +76,10 @@ class Enemy:
     
     def move(self):
         self.x += self.speed
+    
+    def flip(self, direction):
+        if direction == 1:
+            self.resized_image = pygame.transform.flip(self.resized_image, True, False)
     
     def off_screen(self, screen_height):
         return self.rect.y > screen_height+100

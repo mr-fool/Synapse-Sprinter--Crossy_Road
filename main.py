@@ -170,6 +170,7 @@ while True:
             if rand_dir == 1:
                 speed *= -1
             enemy = sprites.Enemy(x, y, size, size, speed)
+            enemy.flip(rand_dir)
             enemies.append(enemy)
     
     
