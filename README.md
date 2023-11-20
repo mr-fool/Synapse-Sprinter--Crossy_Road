@@ -24,7 +24,7 @@ The project provided invaluable insights into the intricacies of integrating har
 To run the code, follow these steps:
 1. Make sure you have Python installed.
 2. Install necessary Python modules by running:
-pip install pyserial pygame
+`pip install pyserial pygame`
 3. Run the `main.py` script.
 4. To run in Arduino mode, set `ARDUINO_MODE = True`.
 5. To run with hardware, execute the `EEGtoKeyStroke(EEGReadings)` function.
