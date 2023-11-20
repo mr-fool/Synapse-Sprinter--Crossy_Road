@@ -1,7 +1,7 @@
 # Synapse-Sprinter-Crossy Road
 
 ## Inspiration
-This project draws inspiration from Stephen Hawking and aims to bring joy and rehabilitation to disabled individuals by integrating hardware into gaming systems.
+This project finds its inspiration in the challenges faced by individuals affected by Muscular Dystrophy. It aims to bring joy and assist in the rehabilitation of those with muscular impairments by integrating hardware into gaming systems. Muscular Dystrophy, a group of diseases causing progressive weakness and loss of muscle mass, serves as a poignant motivation to create an inclusive and enjoyable gaming experience for individuals with such conditions. The goal is to leverage technology not just for entertainment but as a means of therapy and empowerment for those facing muscular challenges.
 
 ## What it does
 Synapse-Sprinter-Crossy Road allows two players to engage in a Crossy Roads-style game, utilizing live data obtained from muscle movements to control the players within the game environment.
