@@ -16,7 +16,8 @@ The project involved connecting an Arduino device to our laptop, capturing real-
 
 ## Assembling the Hardware (Arduino BioAmp EXG Pill Package)
 Our team documented the process of assembling the hardware components using the ARDUINO BioAmp EXG Pill package. Here's a glimpse of our assembly process:
-![Hardware Assembly]![hacking](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/aa287fd4-77c3-4b43-9890-1d510d607bda)
+![Hardware Assembly](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/a8f4ad25-c266-44f9-9a65-9269394ef7e2)
+
 
 ## Accomplishments that we're proud of
 - **Learning New Concepts:** Mastering the process of connecting Arduino to our system, implementing multi-threading, and successfully fetching and utilizing data from external hardware sources.
