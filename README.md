@@ -43,6 +43,7 @@ Our future goals for Synapse-Sprinter-Crossy Road include making the game access
 
 ## YouTube Video Demo
 Here is a video demonstration showcasing the gameplay and hardware integration of Synapse-Sprinter-Crossy Road:
-[![Synapse-Sprinter-Crossy Road Demo](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/a07c6557-254a-4b16-90aa-e45743e91c67)](https://www.youtube.com/watch?v=h2tqiaCLs98)
+[Watch the video demo](https://www.youtube.com/watch?v=h2tqiaCLs98)
+
 
 
