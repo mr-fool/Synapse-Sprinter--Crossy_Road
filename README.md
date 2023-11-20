@@ -14,9 +14,13 @@ The project involved connecting an Arduino device to our laptop, capturing real-
 - **Reading and Parsing Data:** Extracting meaningful data from muscle inputs and converting it into usable game commands.
 - **Designing the Game:** Creating an engaging game interface that effectively integrates live data for player movement.
 
+## Assembling the Hardware (Arduino BioAmp EXG Pill Package)
+Our team documented the process of assembling the hardware components using the ARDUINO BioAmp EXG Pill package. Here's a glimpse of our assembly process:
+![Hardware Assembly]![hacking](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/aa287fd4-77c3-4b43-9890-1d510d607bda)
+
 ## Accomplishments that we're proud of
 - **Learning New Concepts:** Mastering the process of connecting Arduino to our system, implementing multi-threading, and successfully fetching and utilizing data from external hardware sources.
-- 
+  
 ## Gameplay Screenshots
 ![form](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/e8571f4b-192e-4c43-9332-64eb24a2a535)
 
