@@ -1,6 +1,5 @@
 # Synapse-Sprinter-Crossy Road
 
-
 ## Inspiration
 This project draws inspiration from Stephen Hawking and aims to bring joy and rehabilitation to disabled individuals by integrating hardware into gaming systems.
 
@@ -22,10 +21,13 @@ The project involved connecting an Arduino device to our laptop, capturing real-
 The project provided invaluable insights into the intricacies of integrating hardware systems into gaming applications. It expanded our knowledge in hardware-software interaction, offering hands-on experience in merging real-world data inputs with digital gaming environments.
 
 ## How to Run
-To run the code:
-- Run the `main.py`.
-- To run in Arduino mode, set `ARDUINO_MODE = True`.
-- To run with hardware, execute the `EEGtoKeyStroke(EEGReadings)` function.
+To run the code, follow these steps:
+1. Make sure you have Python installed.
+2. Install necessary Python modules by running:
+pip install pyserial pygame
+3. Run the `main.py` script.
+4. To run in Arduino mode, set `ARDUINO_MODE = True`.
+5. To run with hardware, execute the `EEGtoKeyStroke(EEGReadings)` function.
 
-## What's next for Arduino_crossyroad
+## What's next for Synapse-Sprinter-Crossy Road
 Our future goals for Synapse-Sprinter-Crossy Road include making the game accessible across multiple platforms, ensuring that the rehabilitative and entertaining aspects of the game reach a wider audience.
