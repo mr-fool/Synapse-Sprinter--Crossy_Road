@@ -16,6 +16,11 @@ The project involved connecting an Arduino device to our laptop, capturing real-
 
 ## Accomplishments that we're proud of
 - **Learning New Concepts:** Mastering the process of connecting Arduino to our system, implementing multi-threading, and successfully fetching and utilizing data from external hardware sources.
+- 
+## Gameplay Screenshots
+![form](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/e8571f4b-192e-4c43-9332-64eb24a2a535)
+
+![screen](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/a78e4d74-d79f-4ee7-b838-631ddd42b82c)
 
 ## What we learned
 The project provided invaluable insights into the intricacies of integrating hardware systems into gaming applications. It expanded our knowledge in hardware-software interaction, offering hands-on experience in merging real-world data inputs with digital gaming environments.
