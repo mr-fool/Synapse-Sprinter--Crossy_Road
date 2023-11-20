@@ -36,7 +36,6 @@ To run the code, follow these steps:
 `pip install pyserial pygame`
 3. Run the `main.py` script.
 4. To run in Arduino mode, set `ARDUINO_MODE = True`.
-5. To run with hardware, execute the `EEGtoKeyStroke(EEGReadings)` function.
 
 ## What's next for Synapse-Sprinter-Crossy Road
 Our future goals for Synapse-Sprinter-Crossy Road include making the game accessible across multiple platforms, ensuring that the rehabilitative and entertaining aspects of the game reach a wider audience.
