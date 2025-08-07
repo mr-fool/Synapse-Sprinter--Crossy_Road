@@ -1,5 +1,24 @@
 # Synapse-Sprinter-Crossy Road
 
+# Real-Time Adaptive EMG Gaming Framework
+
+## Overview
+This repository demonstrates the practical implementation of the EMG gaming system described in our IEEE Open Journal of Signal Processing paper.
+
+## Repository Scope & Limitations
+### What This Code Includes
+- Real-time EMG signal acquisition from Arduino
+- Basic signal processing pipeline (filtering, RMS windowing)  
+- Game control interface
+- Proof-of-concept demonstration
+
+### What This Code Does NOT Include
+- Theoretical ROC analysis implementations
+- PI convergence proofs
+- Monte Carlo simulation scripts
+- Ninapro DB1 validation routines
+
+**Note**: Mathematical analyses (ROC bounds, detection theory, PI convergence proofs) are provided analytically in the research paper and do not require computational verification.
 ## Inspiration
 This project finds its inspiration in the challenges faced by individuals affected by Muscular Dystrophy. It aims to bring joy and assist in the rehabilitation of those with muscular impairments by integrating hardware into gaming systems. Muscular Dystrophy, a group of diseases causing progressive weakness and loss of muscle mass, serves as a poignant motivation to create an inclusive and enjoyable gaming experience for individuals with such conditions. The goal is to leverage technology not just for entertainment but as a means of therapy and empowerment for those facing muscular challenges.
 
