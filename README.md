@@ -1,6 +1,5 @@
-# Synapse-Sprinter-Crossy Road
-
 # Real-Time Adaptive EMG Gaming Framework
+*Repository: Synapse-Sprinter-Crossy Road*
 
 ## Overview
 This repository demonstrates the practical implementation of the EMG gaming system described in our IEEE Open Journal of Signal Processing paper.
