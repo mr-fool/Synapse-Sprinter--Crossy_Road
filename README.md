@@ -18,25 +18,17 @@ This repository demonstrates the practical implementation of the EMG gaming syst
 - Ninapro DB1 validation routines
 
 **Note**: Mathematical analyses (ROC bounds, detection theory, PI convergence proofs) are provided analytically in the research paper and do not require computational verification.
-## Inspiration
-This project finds its inspiration in the challenges faced by individuals affected by Muscular Dystrophy. It aims to bring joy and assist in the rehabilitation of those with muscular impairments by integrating hardware into gaming systems. Muscular Dystrophy, a group of diseases causing progressive weakness and loss of muscle mass, serves as a poignant motivation to create an inclusive and enjoyable gaming experience for individuals with such conditions. The goal is to leverage technology not just for entertainment but as a means of therapy and empowerment for those facing muscular challenges.
 
-## What it does
-Synapse-Sprinter-Crossy Road allows two players to engage in a Crossy Roads-style game, utilizing live data obtained from muscle movements to control the players within the game environment.
+## Hardware Requirements
+- Arduino Uno microcontroller ($25)
+- BioAmp EXG Pill EMG acquisition module ($15-30)
+- Disposable Ag/AgCl electrodes ($10)
+- Total cost: <$100 USD
 
-## How we built it
-The project involved connecting an Arduino device to our laptop, capturing real-time inputs from muscle movements, and utilizing these inputs to drive the in-game actions of the players.
-
-## Challenges we ran into
-- **Setting up Arduino:** Configuring the Arduino and establishing a stable connection with our system.
-- **Reading and Parsing Data:** Extracting meaningful data from muscle inputs and converting it into usable game commands.
-- **Designing the Game:** Creating an engaging game interface that effectively integrates live data for player movement.
-
-## Assembling the Hardware (Arduino BioAmp EXG Pill Package)
-Our team documented the process of assembling the hardware components using the ARDUINO BioAmp EXG Pill package. Here's a glimpse of our assembly process:
+## Hardware Assembly
 ![Hardware Assembly](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/a8f4ad25-c266-44f9-9a65-9269394ef7e2)
 
-### 🔌 Wiring Quick-Start
+### Wiring Configuration
 
 | **Arduino Uno** | **BioAmp EXG Pill** |
 |-----------------|----------------------|
@@ -45,33 +37,57 @@ Our team documented the process of assembling the hardware components using the 
 | `5 V`           | `VCC`                |
 | `GND`           | `GND`                |
 
-> Plug the Pill’s 3.5 mm jack into your **Ag/AgCl electrodes**, snap on two leads per muscle group, and you’re live in < 2 min.
+> Connect the 3.5mm jack to Ag/AgCl electrodes, attach two leads per muscle group, and the system is operational in <2 minutes.
 
-## Accomplishments that we're proud of
-- **Learning New Concepts:** Mastering the process of connecting Arduino to our system, implementing multi-threading, and successfully fetching and utilizing data from external hardware sources.
-  
-## Gameplay Screenshots
-![form](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/e8571f4b-192e-4c43-9332-64eb24a2a535)
+## Software Dependencies
+- Python 3.x
+- All required packages are listed in `requirements.txt`
 
-![screen](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/a78e4d74-d79f-4ee7-b838-631ddd42b82c)
+### Installation
+```bash
+pip install -r requirements.txt
+```
 
-## What we learned
-The project provided invaluable insights into the intricacies of integrating hardware systems into gaming applications. It expanded our knowledge in hardware-software interaction, offering hands-on experience in merging real-world data inputs with digital gaming environments.
+### Key Dependencies
+- **pyserial**: Arduino communication interface
+- **pygame**: Game engine and user interface
+- **numpy**: Signal processing and mathematical operations
 
-## How to Run
-To run the code, follow these steps:
-1. Make sure you have Python installed.
-2. Install necessary Python modules by running:
-`pip install pyserial pygame`
-3. Run the `main.py` script.
-4. To run in Arduino mode, set `ARDUINO_MODE = True`.
+## Usage
+1. Ensure Python is installed on your system
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Connect the Arduino hardware as specified in the wiring table
+4. Run the main script:
+   ```bash
+   python main.py
+   ```
+5. Set `ARDUINO_MODE = True` in the code for hardware integration
 
-## What's next for Synapse-Sprinter-Crossy Road
-Our future goals for Synapse-Sprinter-Crossy Road include making the game accessible across multiple platforms, ensuring that the rehabilitative and entertaining aspects of the game reach a wider audience.
+## System Demonstration
+The implementation provides a gaming interface that responds to real-time EMG signals, demonstrating the feasibility of low-cost muscle-controlled human-computer interfaces.
 
-## YouTube Video Demo
-Here is a video demonstration showcasing the gameplay and hardware integration of Synapse-Sprinter-Crossy Road:
-[Watch the video demo](https://www.youtube.com/watch?v=h2tqiaCLs98)
+### Gameplay Interface
+![Interface](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/e8571f4b-192e-4c43-9332-64eb24a2a535)
 
+![Gameplay](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/a78e4d74-d79f-4ee7-b838-631ddd42b82c)
 
+## Video Demonstration
+Watch the system in operation: [YouTube Demo](https://www.youtube.com/watch?v=h2tqiaCLs98)
 
+## Technical Implementation
+This code demonstrates:
+- Real-time EMG signal acquisition and processing
+- Adaptive threshold-based muscle activation detection
+- Game control interface with sub-50ms response times
+- Multi-threaded architecture for concurrent data processing
+
+For detailed algorithmic descriptions, mathematical analysis, and comprehensive validation results, refer to the accompanying research publication.
+
+## Research Context
+This implementation serves as a proof-of-concept for accessible EMG-based gaming systems designed to support neuromuscular rehabilitation. The work addresses critical barriers in assistive technology by reducing system costs by >90% compared to clinical-grade alternatives while maintaining real-time performance requirements.
+
+## License
+MIT License - Open source implementation supporting reproducible research.
