@@ -18,6 +18,16 @@ The project involved connecting an Arduino device to our laptop, capturing real-
 Our team documented the process of assembling the hardware components using the ARDUINO BioAmp EXG Pill package. Here's a glimpse of our assembly process:
 ![Hardware Assembly](https://github.com/mr-fool/Synapse-Sprinter--Crossy_Road/assets/6241984/a8f4ad25-c266-44f9-9a65-9269394ef7e2)
 
+### 🔌 Wiring Quick-Start
+
+| **Arduino Uno** | **BioAmp EXG Pill** |
+|-----------------|----------------------|
+| `A0`            | EMG-1 (Channel 1)    |
+| `A1`            | EMG-2 (Channel 2)    |
+| `5 V`           | `VCC`                |
+| `GND`           | `GND`                |
+
+> Plug the Pill’s 3.5 mm jack into your **Ag/AgCl electrodes**, snap on two leads per muscle group, and you’re live in < 2 min.
 
 ## Accomplishments that we're proud of
 - **Learning New Concepts:** Mastering the process of connecting Arduino to our system, implementing multi-threading, and successfully fetching and utilizing data from external hardware sources.
