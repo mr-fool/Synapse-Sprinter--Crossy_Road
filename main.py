@@ -186,7 +186,7 @@ while True:
             # Align y to a grid
             grid_height = enemy_count_limit
             grid_height_count = HEIGHT/grid_height
-            y = random.randint(0, grid_height_count)*grid_height - cam_y
+            y = random.randint(0, int(round(grid_height_count))) * int(round(grid_height)) - int(round(cam_y))
             speed = random.randint(1, 5)
             if rand_dir == 1:
                 speed *= -1
